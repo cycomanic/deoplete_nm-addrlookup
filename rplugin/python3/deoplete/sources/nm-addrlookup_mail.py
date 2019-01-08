@@ -12,7 +12,7 @@ class Source(Base):
     def __init__(self, vim):
         super().__init__(vim)
 
-        self.rank = 80  # default is 100, give deoplete-abook priority
+        self.rank = 101  # default is 100, give deoplete-abook priority
         self.name = 'nm-addrlookup'
         self.mark = '[nm-addrlookup]'
         self.min_pattern_length = 0
@@ -44,9 +44,9 @@ class Source(Base):
         results = []
         for row in command_results[1:]:
             try:
-                name, mail, *rem = row.split('\t')
+                mail, name, *rem = row.split('\t')
             except ValueError:
                 continue
-            #results.append({'word': mail, 'info': name + ' ' + ', '.join(rem)})
-            results.append({'word': mail, 'info': name })
+            email = "{0} <{1}>".format(name, mail.strip("<>"))
+            results.append({'word': email})
         return results
