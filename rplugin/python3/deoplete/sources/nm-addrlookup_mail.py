@@ -32,7 +32,7 @@ class Source(Base):
         ret = self.HEADER_PATTERN.search(context['input'])
         if ret is None:
             return
-        retn = ret[2].strip()
+        retn = ret[2].strip().split(',')[-1]
         if len(retn) < 2:
             return 
         try:
